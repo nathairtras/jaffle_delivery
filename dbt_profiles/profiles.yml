@@ -1,0 +1,13 @@
+# example profiles.yml file
+jaffle_shop:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: backend
+      port: 5432
+      user: postgres
+      password: test
+      dbname: postgres
+      schema: public
+      threads: 1
