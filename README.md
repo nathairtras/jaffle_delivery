@@ -24,6 +24,13 @@ If you want to preserve your sandbox, consider:
 This may be a terrible approach, but it avoids storing the entire jaffle shop repo in this repo.
 The real purpose of this repo is to make `jaffle_shop` faster to use, _not_ to change it.
 
+Alternatively, if you would rather not deal with submodules:
+* Remove the submodule
+* Add `jaffle_shop` to the git ignore
+* Clone your project into `jaffle_shop`
+
+_It may be worth making this more generic in the future?  Change `jaffle_shop` to `dbt_project`?_
+
 ## Walkthrough Commands
 ### Start the Docker Postgres backend in the background
 `./start-backend`
