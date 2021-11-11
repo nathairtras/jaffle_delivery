@@ -8,6 +8,10 @@ This should probably have a license, but there's nothing really here beyond some
 The readme for `jaffle_shop` should be followed.
 The following commands correspond to commands in the repo, but using bash scripts as wrappers for dockerized DBT.
 
+### Docker Requirements
+If you are using Docker Desktop, you will need to set it to have filesystem access to this repo's folder.
+It will be needed for volume mounting the DBT profile and the DBT project directory to the DBT container.
+
 ### Changes to Jaffle Shop
 Keep in mind that the `jaffle_shop` subfolder _is a git repo!_  Do not make commits to it, do not push from it, just use it as a reference.
 You can purge your changes by resetting the file state to get a clean slate.
