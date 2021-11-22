@@ -1,0 +1,50 @@
+# Check if the DBT_PROJECT_DIR is set, exit if not
+[[ -z "$DBT_PROJECT_DIR" ]] && { echo "DBT_PROJECT_DIR is not set!  Where is your DBT project?"; exit 1; }
+
+# Set the defaults
+DF_DBT_ORG="fishtownanalytics"
+DF_DBT_IMAGE="dbt"
+DF_DBT_VERSION="0.19.1"
+DF_DBT_PLATFORM="linux/amd64"
+DF_DBT_PROFILE="$HOME/.dbt/profiles.yml"
+DF_DBT_HTTP_PORT="8080"
+
+# Set the targets
+DC_DBT_PROFILE="/root/.dbt/profiles.yml"
+DC_DBT_PROJECT_DIR="/usr/app"
+DC_DBT_HTTP_PORT="8080"
+
+# Set Defaults for Environment Variables
+DBT_ORG="${DBT_ORG:-$DF_DBT_ORG}"
+DBT_IMAGE="${DBT_IMAGE:-$DF_DBT_IMAGE}"
+DBT_VERSION="${DBT_VERSION:-$DF_DBT_VERSION}"
+DBT_PLATFORM="${DBT_PLATFORM:-$DF_DBT_PLATFORM}"
+DBT_PROFILE="${DBT_PROFILE:-$DF_DBT_PROFILE}"
+DBT_HTTP_PORT="${DBT_HTTP_PORT:-$DF_DBT_HTTP_PORT}"
+
+# Build the arguments
+args=()
+args+=("--rm")
+args+=("--platform=$DBT_PLATFORM")
+if [[ -n "$DBT_NETWORK" ]]; then 
+  args+=("--network=$DBT_NETWORK");
+fi
+args+=("-v")
+args+=("$DBT_PROFILE:$DC_DBT_PROFILE")
+args+=("-v")
+args+=("$DBT_PROJECT_DIR:$DC_DBT_PROJECT_DIR")
+args+=("--publish=$DBT_HTTP_PORT:$DC_DBT_HTTP_PORT")
+args+=("-it")
+args+=("$DBT_ORG/$DBT_IMAGE:$DBT_VERSION")
+args+=($@)
+if [[ -n "$DBT_TARGET" ]]; then
+  args+=("--target");
+  args+=("$DBT_TARGET");
+fi;
+
+if [[ "$*" == *"show-config"* ]]; then
+    echo "Planned Docker Command:";
+    echo "docker run ${args[@]}"; else
+    docker run "${args[@]}";
+fi
+

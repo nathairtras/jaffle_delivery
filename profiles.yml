@@ -2,7 +2,7 @@
 jaffle_shop:
   target: dev
   outputs:
-    dev:
+    prod:
       type: postgres
       host: backend
       port: 5432
@@ -10,4 +10,13 @@ jaffle_shop:
       password: test
       dbname: postgres
       schema: public
+      threads: 1
+    dev:
+      type: postgres
+      host: backend
+      port: 5432
+      user: postgres
+      password: test
+      dbname: postgres
+      schema: dev
       threads: 1

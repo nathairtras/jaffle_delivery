@@ -1,8 +1,6 @@
-# Use postgres/example user/password credentials
 version: '3.1'
 
 services:
-
   backend:
     image: postgres
     restart: always
@@ -16,11 +14,3 @@ services:
     #  - ./pgdata:/var/lib/postgresql/data/pgdata
     ports:
       - 5432:5432
-
-  dbt:
-    image: fishtownanalytics/dbt:0.19.1
-    volumes:
-      - ./dbt_profiles:/root/.dbt/
-      - ./jaffle_shop:/usr/app
-    ports:
-      - 8080:8080
